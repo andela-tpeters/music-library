@@ -1,5 +1,7 @@
 require "music_library"
 
 class Artist < MusicLibrary
-	@songs = []
+	def initialize
+		super
+	end
 end
