@@ -1,5 +1,11 @@
 require "music_library"
 
 class Artist < MusicLibrary
-	@songs = []
+	attr_accessor :songs
+
+	def initialize name
+		super
+		@songs = []
+	end
+
 end
