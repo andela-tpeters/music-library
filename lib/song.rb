@@ -1,7 +1,12 @@
 require "music_library"
 
 class Song < MusicLibrary
-  attr_accessor :artist
+
+  def initialize( name, artist = nil)
+    @name = name
+
+    self.artist = artist unless artist.nil?
+  end
 
   def artist
     @artist
@@ -13,7 +18,7 @@ class Song < MusicLibrary
   end
 
   def add_song_to_artist
-    @artist.songs << self
+    @artist.add_song self
   end
 
 
