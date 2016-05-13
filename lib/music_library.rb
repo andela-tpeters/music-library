@@ -1,9 +1,8 @@
 class MusicLibrary
   attr_accessor :name
-
   @@all = []
 
-  def initialize name
+  def initialize(name)
     @name = name
   end
 
@@ -19,7 +18,7 @@ class MusicLibrary
     @@all = []
   end
 
-  def self.create name
+  def self.create(name)
     @@all << self.new(name).save
   end
 end
