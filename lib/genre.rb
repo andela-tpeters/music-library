@@ -15,9 +15,13 @@ class Genre
     @@artists[name] = []
   end
 
-  def add_song(song_object)
-    songs << song_object unless songs.include?(song_object)
-    songs
+  def artists
+    @@artists[@name]
+  end
+
+  def add_artist(artist_object)
+    artists << artist_object unless artists.include?(artist_object)
+    artists
   end
 
 end

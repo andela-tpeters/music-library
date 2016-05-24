@@ -7,19 +7,14 @@ module Concerns
 	    end
 	  end
 
-    ['songs','genres','artists'].each do |method|
-      define_method(method) do
+    def add_song(song_object)
+      add_artist_to_song(song_object) if self.class == Artist
+      songs << song_object unless songs.include?(song_object)
+      songs
+    end
 
-        self.class.class_variable_get("@@#{method}")[self.name]
-        
-      end
-
-      method_name = method[0..-2]
-
-      define_method("add_#{method_name}") do |object|
-        self.send(method) << object unless self.send(method).include?(object)
-        self.send(method)
-      end
+    def songs
+      self.class.class_variable_get(:@@songs)[self.name]
     end
 
   end

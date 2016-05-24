@@ -18,11 +18,15 @@ class Artist
     song_object.artist = self if song_object.artist.nil?
   end
 
-  def add_song(song_object)
-    add_artist_to_song(song_object) if self.class == Artist
-    songs << song_object unless songs.include?(song_object)
-    songs
+  def genres
+    @@genres[@name]
   end
+
+  def add_genre(genre_object)
+    genres << genre_object unless genres.include?(genre_object)
+    genres
+  end
+  
 
 
 end
