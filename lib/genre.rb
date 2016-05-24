@@ -1,28 +1,22 @@
-require "music_library"
-
-class Genre < MusicLibrary
-  attr_reader :songs
+class Genre
+  
+  include Concerns::InstanceMethods
+  extend Concerns::ClassMethods
+  extend Concerns::Findable
+  attr_accessor :name
+  attr_reader :songs, :artists
+  
+  @@all = []
 
   def initialize(name)
-    super
-
+    @name = name
     @songs = []
-    @@artists = []
-    @@artists_ids = []
+    @artists = []
   end
 
-  def add_song(song)
-    @songs << song if !@songs.include?(song)
+  def add_song(song_object)
+    songs << song_object unless songs.include?(song_object)
+    songs
   end
 
-  def artists
-    @@artists
-  end
-
-  def add_artist(artist)
-    if !@@artists_ids.include?(artist.name)
-      @@artists_ids << artist.name
-      @@artists << artist if !@@artists.include?(artist)
-    end
-  end
 end
