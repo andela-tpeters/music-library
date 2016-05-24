@@ -22,20 +22,28 @@ module Concerns
     def new_from_filename(filename)
       filename_parts = split_filename(filename) 
 
-      name = filename_parts[1]
+      song_name = filename_parts[1]
+      artist_name = filename_parts[0]
+      genre_name = filename_parts[2]
 
-      artist = Artist.find_or_create_by_name(filename_parts[0])
-      genre = Genre.find_or_create_by_name(filename_parts[2])
-      song = Song.new(name,artist,genre)
+      artist = Artist.find_or_create_by_name(artist_name)
+      genre = Genre.find_or_create_by_name(genre_name)
+      song = Song.new(song_name,artist,genre)
 
       song
     end
 
     def create_from_filename(filename)
-      splitted = split_filename(filename)
-      song = Song.find_or_create_by_name(splitted[1])
-      song.artist = Artist.find_or_create_by_name(splitted[0])
-      song.genre = Genre.find_or_create_by_name(splitted[2])
+      filename_parts = split_filename(filename) 
+
+      song_name = filename_parts[1]
+      artist_name = filename_parts[0]
+      genre_name = filename_parts[2]
+
+      song = Song.find_or_create_by_name(song_name)
+      song.artist = Artist.find_or_create_by_name(artist_name)
+      song.genre = Genre.find_or_create_by_name(genre_name)
+      
       song.save
       song
     end
