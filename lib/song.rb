@@ -20,7 +20,6 @@ class Song
 
   def genre=(genre_object)
     @genre = genre_object
-    binding.pry
     add_song_to_genre
     add_to_artist_genre if @artist
     add_to_genre_artist
