@@ -8,7 +8,7 @@ class Artist
   @@all = []
   @@songs = {}
   @@genres = {}
-  
+
   def initialize(name)
     @name = name
     @@songs[name] = []
