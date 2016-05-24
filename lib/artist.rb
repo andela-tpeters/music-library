@@ -1,6 +1,5 @@
 class Artist
   attr_accessor :name
-
   include Concerns::InstanceMethods
   extend Concerns::ClassMethods
   extend Concerns::Findable
