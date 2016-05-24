@@ -6,6 +6,10 @@ class MusicLibraryController
   end
 
   def call
+    puts "Available Commands"
+
+    puts commands.to_a.join(" => ")
+
     command = ""
     while command != "exit"
       command = gets.chomp
@@ -22,38 +26,51 @@ class MusicLibraryController
     "#{object.artist.name} - #{object.name} - #{object.genre.name}"
   end
 
-  ['songs','artists','genres'].each do |class_name|
-
-    this_class = eval(class_name.capitalize[0..-2])
-
-    define_method("list_#{class_name}") do
-      this_class.all.each.with_index(1) do |object, index|
-        text = ""
-        if this_class == Song
-          text = song_to_string(object)
-        else
-          text = object.name
-        end
-        puts "#{index}. #{text}"
-      end
+  def list_songs
+    Song.all.each.with_index(1) do |song, index|
+      puts "#{index}. #{song_to_string(song)}"
     end
   end
 
-  ['artist','genre'].each do |class_name|
-    this_class = eval(class_name.capitalize)
+  def list_artists
+    Artist.all.each.with_index(1) do |artist, index|
+      puts "#{index}. #{artist.name}"
+    end
+  end
 
-    define_method("list_#{class_name}") do
-      puts "Enter #{class_name.capitalize}: "
-      input = gets.strip
+  def list_genres
+    Genre.all.each.with_index(1) do |genre, index|
+      puts "#{index}. #{genre.name}"
+    end
+  end
 
-      found_object = this_class.find_by_name(input)
-      if found_object
-        found_object.songs.each.with_index(1) do |song, index|
-          puts "#{index}. #{song_to_string(song)}"
-        end
-      else
-        puts "#{class_name.capitalize} not found"
+  def list_artist_songs
+    puts "Enter Artist Name: "
+    input = gets.chomp
+
+    artist_found = Artist.find_by_name(input)
+
+    if artist_found
+      artist_found.songs.each.with_index(1) do |song, index|
+        puts "#{index}. #{song_to_string(song)}"
       end
+    else
+      puts "Artist not found"
+    end
+  end
+
+  def list_genre_songs
+    puts "Enter Genre: "
+    input = gets.chomp
+
+    genre_found = Genre.find_by_name(input)
+
+    if genre_found
+      genre_found.songs.each.with_index(1) do |song, index|
+        puts "#{index}. #{song_to_string(song)}"
+      end
+    else
+      puts "Genre not found"
     end
   end
 
@@ -71,9 +88,9 @@ class MusicLibraryController
     {
       "list songs"   => :list_songs,
       "list artists" => :list_artists,
-      "list artist"  => :list_artist,
+      "list artist"  => :list_artist_songs,
       "list genres"  => :list_genres,
-      "list genre"   => :list_genre,
+      "list genre"   => :list_genre_songs,
       "play song"    => :play_song,
       "exit"         => :exit
     }
