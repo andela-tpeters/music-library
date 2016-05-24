@@ -8,12 +8,7 @@ module Concerns
 	  end
 
     ['songs','genres','artists'].each do |method|
-      define_method(method) do
-
-        self.class.class_variable_get("@@#{method}")[self.name]
-        
-      end
-
+      
       method_name = method[0..-2]
 
       define_method("add_#{method_name}") do |object|
