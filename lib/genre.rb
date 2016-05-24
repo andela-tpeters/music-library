@@ -4,14 +4,23 @@ class Genre
   extend Concerns::ClassMethods
   extend Concerns::Findable
   attr_accessor :name
-  attr_reader :songs, :artists
   
   @@all = []
+  @@songs = {}
+  @@artists = {}
 
   def initialize(name)
-    @name = name
+<<<<<<< HEAD
+    super
+
     @songs = []
-    @artists = []
+    @@artists = []
+    @@artists_ids = []
+=======
+    @name = name
+    @@songs[name] = []
+    @@artists[name] = []
+>>>>>>> master
   end
 
   def add_song(song_object)
@@ -19,4 +28,17 @@ class Genre
     songs
   end
 
+<<<<<<< HEAD
+  def artists
+    @@artists
+  end
+
+  def add_artist(artist)
+    if !@@artists_ids.include?(artist.name)
+      @@artists_ids << artist.name
+      @@artists << artist if !@@artists.include?(artist)
+    end
+  end
+=======
+>>>>>>> master
 end
