@@ -1,16 +1,18 @@
 class Artist
   attr_accessor :name
-  attr_reader :songs, :genres
+
   include Concerns::InstanceMethods
   extend Concerns::ClassMethods
   extend Concerns::Findable
 
   @@all = []
-
+  @@songs = {}
+  @@genres = {}
+  
   def initialize(name)
     @name = name
-    @songs = []
-    @genres = []
+    @@songs[name] = []
+    @@genres[name] = []
   end
 
   def add_artist_to_song(song_object)

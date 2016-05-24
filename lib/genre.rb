@@ -4,14 +4,15 @@ class Genre
   extend Concerns::ClassMethods
   extend Concerns::Findable
   attr_accessor :name
-  attr_reader :songs, :artists
   
   @@all = []
+  @@songs = {}
+  @@artists = {}
 
   def initialize(name)
     @name = name
-    @songs = []
-    @artists = []
+    @@songs[name] = []
+    @@artists[name] = []
   end
 
   def add_song(song_object)
