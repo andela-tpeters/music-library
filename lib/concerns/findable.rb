@@ -2,7 +2,7 @@ module Concerns
   module Findable
 
     def find_by_name(name)
-      found = self.class_variable_get(:@@all).find_all do |object| 
+      found = self.class_variable_get(:@@all).select do |object| 
                     object.name == name
                 end
       

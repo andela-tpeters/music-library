@@ -1,8 +1,6 @@
 class Genre
   
-  include Concerns::InstanceMethods
-  extend Concerns::ClassMethods
-  extend Concerns::Findable
+  include Concerns
   attr_accessor :name
   
   @@all = []
