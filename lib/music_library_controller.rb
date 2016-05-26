@@ -22,36 +22,43 @@ class MusicLibraryController
       sleep 1.0
       send(commands[command])
     else
-      message.put("Command not understood\n",'red')
+      message.no_command_error_message
     end
   end
 
-  def song_to_string(object)
-    "#{object.artist.name} - #{object.name} - #{object.genre.name}"
+  def song_to_string(song)
+    "#{song.artist.name} - #{song.name} - #{song.genre.name}"
   end
 
   def list_songs
     message.progress_bar
+    sleep 0.5
     message.print_result_text
     Song.all.each.with_index(1) do |song, index|
-      puts "#{index}. #{song_to_string(song)}"
+      puts "\t\t#{index}. #{song_to_string(song)}"
+      puts "\t-------------------------------------------------------------".blue
     end
+    puts
   end
 
   def list_artists
     message.progress_bar
+    sleep 0.5
     message.print_result_text    
     Artist.all.each.with_index(1) do |artist, index|
-      puts "#{index}. " << " #{artist.name}".yellow
+      puts "\t\t#{index}. " << " #{artist.name}".yellow
     end
+    puts
   end
 
   def list_genres
     message.progress_bar
+    sleep 0.5
     message.print_result_text
     Genre.all.each.with_index(1) do |genre, index|
-      puts "#{index}. " << " #{genre.name}".yellow
+      puts "\t\t#{index}. " << " #{genre.name}".yellow
     end
+    puts
   end
 
   def list_artist_songs
@@ -64,10 +71,12 @@ class MusicLibraryController
   def check_found(object_found, class_name)
     if object_found
       message.progress_bar
+      sleep 0.5
       message.print_result_text
       object_found.songs.each.with_index(1) do |song, index|
-        puts "#{index}." << " #{song_to_string(song)}".yellow
+        puts "\t\t#{index}." << " #{song_to_string(song)}".yellow
       end
+      puts
     else
       message.put("#{class_name.capitalize} not found")
     end
@@ -84,7 +93,10 @@ class MusicLibraryController
     message.print_song_number_caption
     song_number = gets.strip.to_i
     message.progress_bar
-    puts "\nPlaying #{song_to_string(Song.all[song_number - 1])} \n".green
+    return puts "Song number does not exist".red if song_number > Song.all.size
+    sleep 0.5
+    puts "\nPlaying #{song_to_string(Song.all[song_number - 1])}\n".green
+    sleep 0.5
   end
 
   def exit
@@ -93,5 +105,9 @@ class MusicLibraryController
 
   def commands
     message.commands
+  end
+
+  def display_commands
+    message.display_commands
   end
 end

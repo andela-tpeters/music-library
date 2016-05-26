@@ -22,9 +22,9 @@ class Messages
 
   def available_commands
     puts """
-      =========================================================
-                          Available Commands
-      =========================================================""".yellow
+	  =========================================================
+	                  Available Commands
+	  =========================================================""".yellow
   end
 
   def progress_bar
@@ -34,12 +34,20 @@ class Messages
       sleep 0.1
       bar.increment!
     end
+    puts
   end
 
   def display_commands
       available_commands
+      puts """
+	    	Commands \t| \tDescription
+	    ------------------------------------------"""
       commands.each do |key, value|
-        puts "\t" << key.green << ": " << value.to_s.gsub("_"," ").white
+      	if key == 'help' || key == 'exit'
+      		puts """		#{key.green} \t\t| \t#{value.to_s.gsub("_"," ").white}"""
+      		next
+      	end
+        puts """		#{key.green} \t| \t#{value.to_s.gsub("_"," ").white}"""
       end
   end
 
@@ -47,14 +55,15 @@ class Messages
     progress_bar
     system 'clear'
     puts """
-    =============================================================
-                        Welcome Music Library
-    =============================================================""".white
+	=============================================================
+	                    Welcome Music Library
+	=============================================================""".white
     display_commands
   end
 
   def print_result_text
-    put("\nResults: \n",'green')
+    put("\nResults",'green')
+    put("__________________________________________________________",'white')
   end
 
   def print_processing_text
@@ -71,6 +80,15 @@ class Messages
 
   def print_song_number_caption
     print "Please Choose a song number: ".yellow
+  end
+
+  def no_command_error_message
+  	put("""Error:
+  		The command action is not available: 
+  		Please check the spellings and try again
+  		or run #{"\"help\"".white} to see list of available commands
+
+  	""",'red')
   end
   
   
