@@ -34,12 +34,19 @@ class Messages
       sleep 0.1
       bar.increment!
     end
+    puts
   end
 
   def display_commands
       available_commands
+      puts "\tCommands\t| Description"
+      puts "\t--------------------------------"
       commands.each do |key, value|
-        puts "\t" << key.green << ": " << value.to_s.gsub("_"," ").white
+      	if key == 'help' || key == 'exit'
+      		puts "\t" << key.green << "\t\t| " << value.to_s.gsub("_"," ").white
+      		next
+      	end
+        puts "\t" << key.green << "\t| " << value.to_s.gsub("_"," ").white
       end
   end
 
@@ -54,7 +61,8 @@ class Messages
   end
 
   def print_result_text
-    put("\nResults: \n",'green')
+    put("\nResults",'green')
+    put("__________________________________________________________",'white')
   end
 
   def print_processing_text

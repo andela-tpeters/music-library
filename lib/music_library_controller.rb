@@ -94,4 +94,8 @@ class MusicLibraryController
   def commands
     message.commands
   end
+
+  def display_commands
+    message.display_commands
+  end
 end
