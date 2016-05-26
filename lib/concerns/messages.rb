@@ -52,6 +52,26 @@ class Messages
     =============================================================""".white
     display_commands
   end
+
+  def print_result_text
+    put("\nResults: \n",'green')
+  end
+
+  def print_processing_text
+    put('Processing: ','yellow')
+  end
+
+  def print_artist_caption
+    print "Enter Artist Name: ".yellow
+  end
+
+  def print_genre_caption
+    print "Enter Genre: ".yellow
+  end
+
+  def print_song_number_caption
+    print "Please Choose a song number: ".yellow
+  end
   
   
 end

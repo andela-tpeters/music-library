@@ -15,10 +15,10 @@ class MusicLibraryController
     end
   end
 
+  private
   def process_command(command)
-
     if commands[command]
-      message.put('Processing: ','yellow')
+      message.print_processing_text
       sleep 1.0
       send(commands[command])
     else
@@ -32,7 +32,7 @@ class MusicLibraryController
 
   def list_songs
     message.progress_bar
-    message.put("\nResults: \n",'green')
+    message.print_result_text
     Song.all.each.with_index(1) do |song, index|
       puts "#{index}. #{song_to_string(song)}"
     end
@@ -40,7 +40,7 @@ class MusicLibraryController
 
   def list_artists
     message.progress_bar
-    message.put("\nResults: \n",'green')
+    message.print_result_text    
     Artist.all.each.with_index(1) do |artist, index|
       puts "#{index}. " << " #{artist.name}".yellow
     end
@@ -48,14 +48,14 @@ class MusicLibraryController
 
   def list_genres
     message.progress_bar
-    message.put("\nResults: \n",'green')
+    message.print_result_text
     Genre.all.each.with_index(1) do |genre, index|
       puts "#{index}. " << " #{genre.name}".yellow
     end
   end
 
   def list_artist_songs
-    print "Enter Artist Name: ".yellow
+    message.print_artist_caption
     input = gets.chomp
     artist_found = Artist.find_by_name(input)
     check_found(artist_found,'artist')
@@ -64,24 +64,24 @@ class MusicLibraryController
   def check_found(object_found, class_name)
     if object_found
       message.progress_bar
-      message.put("\nResults: \n",'green')
+      message.print_result_text
       object_found.songs.each.with_index(1) do |song, index|
         puts "#{index}." << " #{song_to_string(song)}".yellow
       end
     else
-      puts "#{class_name.capitalize} not found"
+      message.put("#{class_name.capitalize} not found")
     end
   end
 
   def list_genre_songs
-    print "Enter Genre: "
+    message.print_genre_caption
     input = gets.chomp
     genre_found = Genre.find_by_name(input)
     check_found(genre_found,'genre')
   end
 
   def play_song
-    print "Please Choose a song number: ".yellow
+    message.print_song_number_caption
     song_number = gets.strip.to_i
     message.progress_bar
     puts "\nPlaying #{song_to_string(Song.all[song_number - 1])} \n".green
