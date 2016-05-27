@@ -99,6 +99,18 @@ class MusicLibraryController
     sleep 0.5
   end
 
+  def library_stat
+    message.library_stat
+  end
+
+  def artist_library
+    message.artist_library
+  end
+
+  def genre_library
+    message.genre_library
+  end
+
   def exit
     message.exit
   end
