@@ -138,48 +138,45 @@ class Messages
     print "Total #{model}  in Library".ljust(25," ").send(color), "\t|\t", value.to_s.send(color),"\n"
   end
 
+  def generate_stat_heading(model_name)
+    puts "\n"
+    print_tab(1)
+    print "S/N".ljust(5," "),"\t|\t",model_name.ljust(30,' '),"|\t","Songs"
+    puts
+    generate_line(72,"-","white",1)
+  end
+
   def genre_library
-    heading = """
-          S/N   |    Genre Name           |            Songs
-      ------------------------------------------------------------------------
-      """
-      puts heading
+    generate_stat_heading("Genre Name")
     Genre.class_variable_get(:@@songs).each.with_index(1) do |pair,index|
-      songs = ""
-      pair[1].each.with_index(1) do |song,index| 
-        if index == 1
-          songs << """#{index.to_s.yellow}. #{song.name.green}\n"""
-          next
-        end
-        songs << """\t\t\t\t\t\t\t#{index.to_s.yellow}. #{song.name.green}\n"""
-      end
-      puts """          #{index}.       #{pair[0].ljust(30,' ').red}      #{songs}"""
-      puts """
-        -------------------------------------------------------------------------""".blue
-      puts """\n\n#{heading}""" if index % 25 == 0
+      pair_to_string(pair[0],pair[1],index)
+      generate_stat_heading("Genre Name") if index % 25 == 0
     end
   end
 
   def artist_library
-    heading = """
-          S/N   |    Artist Name           |            Songs
-      ------------------------------------------------------------------------
-      """
-      puts heading
+     generate_stat_heading("Artist Name")
     Artist.class_variable_get(:@@songs).each.with_index(1) do |pair,index|
-      songs = ""
-      pair[1].each.with_index(1) do |song,index| 
-        if index == 1
-          songs << """#{index.to_s.yellow}. #{song.name.green}\n"""
-          next
-        end
-        songs << """\t\t\t\t\t\t\t#{index.to_s.yellow}. #{song.name.green}\n"""
-      end
-      puts """          #{index}.       #{pair[0].ljust(30,' ').red}      #{songs}"""
-      puts """
-        -------------------------------------------------------------------------""".blue
-      puts """\n\n#{heading}""" if index % 25 == 0
+      pair_to_string(pair[0],pair[1],index)
+      generate_stat_heading("Artist Name") if index % 25 == 0
     end
+  end
+
+  def pair_to_string(name,songs,index)
+    songs_string = songs_to_string(songs)
+    print_tab(1)
+    puts "   #{index.to_s.ljust(5, ' ')}\t#{name.ljust(30,' ').red}\t  #{songs_string}"
+    generate_line(73,'-','blue',1)
+  end
+
+  def songs_to_string(songs)
+    songs_string = ""
+    songs.each.with_index(1) do |song,index| 
+      songs_string << "#{index.to_s.yellow}. #{song.name.green}\n" if index == 1
+      next if index == 1
+      songs_string << "#{index.to_s.rjust(60," ").yellow}. #{song.name.green}\n"""
+    end
+    songs_string
   end
   
   

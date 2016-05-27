@@ -99,7 +99,7 @@ class MusicLibraryController
     sleep 0.5
   end
 
-  def library_stat
+  def library_stat(model = nil)
     message.library_stat
   end
 
