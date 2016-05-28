@@ -1,5 +1,6 @@
 class MusicLibraryController
   attr_reader :message
+
   def initialize(path = "./db/mp3s")
     MusicImporter.new(path).import
     @message = Messages.new
@@ -16,6 +17,7 @@ class MusicLibraryController
   end
 
   private
+
   def process_command(command)
     if commands[command]
       message.print_processing_text
@@ -33,7 +35,7 @@ class MusicLibraryController
   def list_songs
     message.progress_bar
     sleep 0.5
-    message.print_result_text
+    message.print_result_caption
     Song.all.each.with_index(1) do |song, index|
       puts "\t\t#{index}. #{song_to_string(song)}"
       puts "\t-------------------------------------------------------------".blue
@@ -44,7 +46,7 @@ class MusicLibraryController
   def list_artists
     message.progress_bar
     sleep 0.5
-    message.print_result_text    
+    message.print_result_caption    
     Artist.all.each.with_index(1) do |artist, index|
       puts "\t\t#{index}. " << " #{artist.name}".yellow
     end
@@ -54,7 +56,7 @@ class MusicLibraryController
   def list_genres
     message.progress_bar
     sleep 0.5
-    message.print_result_text
+    message.print_result_caption
     Genre.all.each.with_index(1) do |genre, index|
       puts "\t\t#{index}. " << " #{genre.name}".yellow
     end
@@ -62,7 +64,7 @@ class MusicLibraryController
   end
 
   def list_artist_songs
-    message.print_artist_caption
+    message.print_caption("Enter Artist Name: ",'yellow')
     input = gets.chomp
     artist_found = Artist.find_by_name(input)
     check_found(artist_found,'artist')
@@ -72,7 +74,7 @@ class MusicLibraryController
     if object_found
       message.progress_bar
       sleep 0.5
-      message.print_result_text
+      message.print_result_caption
       object_found.songs.each.with_index(1) do |song, index|
         puts "\t\t#{index}." << " #{song_to_string(song)}".yellow
       end
@@ -83,14 +85,14 @@ class MusicLibraryController
   end
 
   def list_genre_songs
-    message.print_genre_caption
+    message.print_caption("Enter Genre: ",'yellow')
     input = gets.chomp
     genre_found = Genre.find_by_name(input)
     check_found(genre_found,'genre')
   end
 
   def play_song
-    message.print_song_number_caption
+    message.print_caption("Please Choose a song number: ",'yellow')
     song_number = gets.strip.to_i
     message.progress_bar
     return puts "Song number does not exist".red if song_number > Song.all.size
@@ -99,16 +101,16 @@ class MusicLibraryController
     sleep 0.5
   end
 
-  def library_stat(model = nil)
+  def library_stat
     message.library_stat
   end
 
   def artist_library
-    message.artist_library
+    message.get_library_stat_for(Artist)
   end
 
   def genre_library
-    message.genre_library
+    message.get_library_stat_for(Genre)
   end
 
   def exit

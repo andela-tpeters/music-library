@@ -2,4 +2,8 @@
 
 require_relative '../config/environment'
 
-MusicLibraryController.new.call
+begin
+  MusicLibraryController.new.call
+rescue Interrupt => e
+  puts "Exit"
+end

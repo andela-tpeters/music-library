@@ -1,9 +1,6 @@
 class Genre
-  
-  include Concerns
   attr_accessor :name
-  
-  @@all = []
+  include Concerns
   @@songs = {}
   @@artists = {}
 
@@ -22,4 +19,7 @@ class Genre
     artists
   end
 
+  def self.all
+    @@all ||= []
+  end
 end

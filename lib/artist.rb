@@ -2,7 +2,6 @@ class Artist
   attr_accessor :name
   include Concerns
 
-  @@all = []
   @@songs = {}
   @@genres = {}
 
@@ -24,7 +23,8 @@ class Artist
     genres << genre_object unless genres.include?(genre_object)
     genres
   end
-  
 
-
+  def self.all
+    @@all ||= []
+  end
 end

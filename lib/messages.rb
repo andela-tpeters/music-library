@@ -1,4 +1,4 @@
-class Messages
+class Messages < TextStyling
   def exit
     puts "Goodbye"
   end
@@ -35,41 +35,29 @@ class Messages
     }
   end
 
-  def put(message,color)
-    puts message.send(color)
+  def data_hash
+    {
+      "Songs" => Song.all.size,
+      "Artists" => Artist.all.size,
+      "Genres" => Genre.all.size
+    }
   end
 
-  def available_commands
+  def available_commands_heading
     generate_line(57,"=","yellow",1)
     print_tab(3)
     puts "     Available Commands".yellow
     generate_line(57,"=","yellow",1)
   end
-
-  def generate_line(number,line,color,tabs_number)
-    print_tab(tabs_number)
-    number.times { print line.send(color) }
-    puts
-  end
-
-  def print_tab(number)
-    number.times { print "\t"}
-  end
-
-  def progress_bar
-    bar = ProgressBar.new(10)
-    puts 'Loading'
-    10.times do
-      sleep 0.1
-      bar.increment!
-    end
-    puts
+  
+  def put(message,color)
+    puts message.send(color)
   end
 
   def display_commands
-      available_commands
+      available_commands_heading
       print "\t\tCommands ", "\t\t|\t", "Description\n"
-      generate_line(60,"-",'white',1)
+      generate_line(60,"-","white",1)
       commands_and_description.each do |key, value|
         puts "\t\t#{key.ljust(20,' ').green}\t|\t#{value.white}"
       end
@@ -77,36 +65,25 @@ class Messages
 
   def welcome_message
     progress_bar
-    system 'clear'
-    80.times do 
-      sleep 0.015
-      print '='.white
-    end
+    system "clear"
+    line_animate(80)
     puts
     print_tab(3)
     puts "   Welcome Music Library".white
     display_commands
   end
 
-  def print_result_text
-    put("         \n\nResults",'green')
+  def print_result_caption
+    put("         \n\nResults","green")
     generate_line(67,"-","white",0)
   end
 
   def print_processing_text
-    put('Processing: ','yellow')
+    put("Processing: ","yellow")
   end
 
-  def print_artist_caption
-    print "Enter Artist Name: ".yellow
-  end
-
-  def print_genre_caption
-    print "Enter Genre: ".yellow
-  end
-
-  def print_song_number_caption
-    print "Please Choose a song number: ".yellow
+  def print_caption(string,color)
+    print string.send(color)
   end
 
   def no_command_error_message
@@ -119,46 +96,26 @@ class Messages
   end
 
   def library_stat
-    total_songs = Song.all.size
-    total_artists = Artist.all.size
-    total_genre = Genre.all.size
-    puts "\n"
     print_tab(4)
     puts "Library Statistics"
     generate_line(74,'-','white',1)
-    print_tab(2)
-    summary_text("Songs",total_songs,'red')
-    print_tab(2)
-    summary_text("Artists",total_artists,'white')
-    print_tab(2)
-    summary_text("Genres",total_genre,'yellow')
+    index = 0
+    data_hash.each do |model,value|
+      print_tab(2)
+      summary_text(model,value,color_list[index])
+      index += 1
+    end
   end
 
   def summary_text(model,value,color)
     print "Total #{model}  in Library".ljust(25," ").send(color), "\t|\t", value.to_s.send(color),"\n"
   end
 
-  def generate_stat_heading(model_name)
-    puts "\n"
-    print_tab(1)
-    print "S/N".ljust(5," "),"\t|\t",model_name.ljust(30,' '),"|\t","Songs"
-    puts
-    generate_line(72,"-","white",1)
-  end
-
-  def genre_library
-    generate_stat_heading("Genre Name")
-    Genre.class_variable_get(:@@songs).each.with_index(1) do |pair,index|
+  def get_library_stat_for(model)
+    generate_stat_heading("#{model.to_s} Name")
+    model.class_variable_get(:@@songs).each.with_index(1) do |pair,index|
       pair_to_string(pair[0],pair[1],index)
-      generate_stat_heading("Genre Name") if index % 25 == 0
-    end
-  end
-
-  def artist_library
-     generate_stat_heading("Artist Name")
-    Artist.class_variable_get(:@@songs).each.with_index(1) do |pair,index|
-      pair_to_string(pair[0],pair[1],index)
-      generate_stat_heading("Artist Name") if index % 25 == 0
+      generate_stat_heading("#{model.to_s} Name") if index % 25 == 0
     end
   end
 
