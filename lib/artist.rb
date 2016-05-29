@@ -1,7 +1,6 @@
 class Artist
   attr_accessor :name
   include Concerns
-
   @@songs = {}
   @@genres = {}
 

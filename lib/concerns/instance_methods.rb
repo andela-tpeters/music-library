@@ -2,7 +2,7 @@ module Concerns
   module InstanceMethods
     def save
       unless self.class.all.include?(self)
-        self.class.all << self 
+        self.class.all << self
       end
     end
 
@@ -13,10 +13,9 @@ module Concerns
     end
 
     def songs
-      self.class.class_variable_get(:@@songs)[self.name]
+      self.class.class_variable_get(:@@songs)[name]
     end
   end
-
 
   module ClassMethods
     def destroy_all
@@ -24,7 +23,7 @@ module Concerns
     end
 
     def create(name)
-      object = self.new(name)
+      object = new(name)
       object.save
       object
     end
