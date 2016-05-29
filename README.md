@@ -37,13 +37,17 @@ $  bin/musiclibrary
   ----------------------------
 
   Commands:
-    list songs - List all songs.
-    list artists - List all artists.
-    list genres - List all genres.
-    play song - Play a single song (specify the song number).
-    list artist - List songs of artist.
-    list genre - List songs of certain genre.
-    exit - Exit the Library.
+    lib stat         - Shows Statistics of Library.
+    lib stat genres  - Shows All Genres and thier songs.
+    lib stat artists - Shows All Artists and thier songs.
+    list songs       - List all songs.
+    list artists     - List all artists.
+    list genres      - List all genres.
+    play song        - Play a single song (specify the song number).
+    list artist      - List songs of artist.
+    list genre       - List songs of certain genre.
+    exit             - Exit the Library.
+    help             - Displays all the available commands
  ♯ ~
 
 ```
