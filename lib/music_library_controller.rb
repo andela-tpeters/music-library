@@ -38,7 +38,7 @@ class MusicLibraryController
     message.print_result_caption
     Song.all.each.with_index(1) do |song, index|
       puts "\t\t#{index}. #{song_to_string(song)}"
-      puts "\t-------------------------------------------------------------".blue
+      message.generate_line(61,"-","blue",1)
     end
     puts
   end
@@ -106,11 +106,11 @@ class MusicLibraryController
   end
 
   def artist_library
-    message.get_library_stat_for(Artist)
+    message.get_stat_for(Artist)
   end
 
   def genre_library
-    message.get_library_stat_for(Genre)
+    message.get_stat_for(Genre)
   end
 
   def exit

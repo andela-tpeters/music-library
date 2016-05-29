@@ -38,5 +38,41 @@ class TextStyling
     puts
     generate_line(72,"-","white",1)
   end
+
+  def justify(value, by = 0, by_string = " ", left = true)
+    return to_string(value).ljust(by, by_string) if left
+    return to_string(value).rjust(by, by_string) unless left
+  end
+
+  def to_string(value)
+    value.to_s
+  end
+
+  def format_song_to_string(song_name, by = 0, index = 1)
+    string = ""
+    string << justify(index, 0, " ", false).yellow if index == 1
+    string << justify(index, by, " ", false).yellow unless index == 1
+    string << ".   #{song_name.green}\n"
+    string
+  end
+
+  def library_stat_heading
+    print_tab(4)
+    puts "Library Statistics"
+    generate_line(74, "-", "white", 1)
+  end
+  
+  def print_result_caption
+    put("         \n\nResults", "green")
+    generate_line(67, "-", "white", 0)
+  end
+
+  def print_processing_text
+    put("Processing: ", "yellow")
+  end
+
+  def print_caption(string, color)
+    print string.send(color)
+  end
 end
 
