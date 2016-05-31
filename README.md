@@ -1,4 +1,4 @@
-# Ruby Music Library
+# Ruby Music Library [![Build Status](https://travis-ci.org/t-peters/music-library.svg?branch=master)](https://travis-ci.org/t-peters/music-library)
 
 ## Overview
 
