@@ -1,6 +1,7 @@
 class TextStyling
   def color_list
-    ["yellow", "red", "blue", "white"]
+    # ["yellow", "red", "blue", "white"]
+    %w(yellow red blue white)
   end
 
   def generate_line(number, line, color, tabs_number)
