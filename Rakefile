@@ -17,3 +17,5 @@ end
 task :test do
   bundle exec "rspec"
 end
+
+task :default => [:test]
