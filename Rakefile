@@ -13,3 +13,7 @@ task :console do
   puts "Console started:"
   Pry.start
 end
+
+task :test do
+  bundle exec "rspec"
+end
