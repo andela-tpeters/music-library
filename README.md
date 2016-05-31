@@ -1,5 +1,7 @@
 # Ruby Music Library [![Build Status](https://travis-ci.org/t-peters/music-library.svg?branch=master)](https://travis-ci.org/t-peters/music-library)
 
+
+
 ## Overview
 
 A command line Music Library application. The application accepts a file path to the music mp3 files, parses them and is able to display, search, create and 'play' the music.
