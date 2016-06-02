@@ -1,6 +1,5 @@
 class TextStyling
   def color_list
-    # ["yellow", "red", "blue", "white"]
     %w(yellow red blue white)
   end
 

@@ -5,7 +5,7 @@ class Output
     @style = TextStyling.new
   end
 
-  def data_hash
+  def lib_totals
     {
       "Songs" => Song.all.size,
       "Artists" => Artist.all.size,
@@ -22,8 +22,8 @@ class Output
 
   def list_model_songs(model)
     style.loading_bar_result_cap
-    model.all.each.with_index(1) do |object, index|
-      puts "\t\t#{index}. " << " #{object.name}".yellow
+    model.all.each.with_index(1) do |obj, index|
+      puts "\t\t#{index}. " << " #{obj.name}".yellow
     end
     puts
   end
@@ -31,7 +31,7 @@ class Output
   def library_stat
     style.library_stat_heading
     index = 0
-    data_hash.each do |model, value|
+    lib_totals.each do |model, value|
       style.print_tab(2)
       summary_text(model, value, style.color_list[index])
       index += 1
@@ -39,10 +39,8 @@ class Output
   end
 
   def summary_text(model, value, color)
-    print "Total #{model}  in Library".ljust(25, " ").send(color),
-          "\t|\t",
-          value.to_s.send(color),
-          "\n"
+    print "#{'Total #{model}  in Library'.ljust(25, ' ').send(color)} \
+          \t|\t #{value.to_s.send(color)} \n"
   end
 
   def get_stat_for(model)

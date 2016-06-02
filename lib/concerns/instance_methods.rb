@@ -16,16 +16,4 @@ module Concerns
       self.class.class_variable_get(:@@songs)[name]
     end
   end
-
-  module ClassMethods
-    def destroy_all
-      all.clear
-    end
-
-    def create(name)
-      object = new(name)
-      object.save
-      object
-    end
-  end
 end

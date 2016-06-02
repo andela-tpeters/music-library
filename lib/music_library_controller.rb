@@ -49,12 +49,12 @@ class MusicLibraryController
     check_found(find, "artist")
   end
 
-  def check_found(object_found, class_name)
-    if object_found
+  def check_found(found, name)
+    if found
       style.loading_bar_result_cap
-      output.display_songs(object_found.songs)
+      output.display_songs(found.songs)
     else
-      style.put("#{class_name.capitalize} not found", "red")
+      style.put("#{name.capitalize} not found", "red")
     end
   end
 
