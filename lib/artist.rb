@@ -3,7 +3,7 @@ class Artist
   include Concerns
   @@songs = {}
   @@genres = {}
-  @@all = []
+  @all = @@all = []
 
   def initialize(name)
     @name = name
