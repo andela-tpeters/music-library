@@ -2,7 +2,7 @@ class Song
   attr_accessor :name
   attr_reader :artist, :genre
   include Concerns
-  @@all = []
+  @all = @@all = []
 
   def initialize(name, artist = nil, genre = nil)
     @name = name

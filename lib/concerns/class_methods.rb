@@ -1,7 +1,7 @@
 module Concerns
   module ClassMethods
     def all
-      self.class_variable_get(:@@all)
+      @all
     end
 
     def destroy_all
