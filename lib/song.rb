@@ -2,7 +2,7 @@ class Song
   attr_accessor :name
   attr_reader :artist, :genre
   include Concerns
-  @all = @@all = []
+  @@all = []
 
   def initialize(name, artist = nil, genre = nil)
     @name = name
@@ -18,23 +18,23 @@ class Song
   def genre=(genre)
     @genre = genre
     add_song_to_genre
-    add_to_artist_genre if @artist
-    add_to_genre_artist
+    add_genre_to_artist if @artist
+    add_artist_to_genre
   end
 
   def add_song_to_artist
-    artist.add_song(self)
+    artist.add_song self
   end
 
   def add_song_to_genre
-    genre.add_song(self)
+    genre.add_song self
   end
 
-  def add_to_artist_genre
-    artist.add_genre(genre)
+  def add_genre_to_artist
+    artist.add_genre genre
   end
 
-  def add_to_genre_artist
-    genre.add_artist(artist)
+  def add_artist_to_genre
+    genre.add_artist artist
   end
 end

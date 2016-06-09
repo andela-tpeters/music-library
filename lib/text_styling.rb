@@ -3,18 +3,18 @@ class TextStyling
     %w(yellow red blue white)
   end
 
-  def generate_line(number, line, color, tabs_number)
-    print_tab(tabs_number)
+  def line(number, line, color, tabs)
+    tab(tabs)
     number.times { print line.send(color) }
     puts
   end
 
-  def print_tab(number)
+  def tab(number)
     number.times { print "\t" }
   end
 
   def progress_bar
-    bar = ProgressBar.new(10)
+    bar = ProgressBar.new 10
     puts "Loading"
     10.times do
       sleep 0.1
@@ -30,14 +30,14 @@ class TextStyling
     end
   end
 
-  def generate_stat_heading(model_name)
+  def heading_for(model)
     puts "\n"
-    print_tab(1)
-    print("S/N".ljust(5, " "),
-          "\t|\t", model_name.ljust(30, " "),
-          "|\t", "Songs")
+    tab 1
+    print "S/N".ljust(5, " "),
+          "\t|\t", "#{model} Name".ljust(30, " "),
+          "|\t", "Songs"
     puts
-    generate_line(72, "-", "white", 1)
+    line 72, "-", "white", 1
   end
 
   def justify(value, by = 0, by_string = " ", left = true)
@@ -49,44 +49,39 @@ class TextStyling
     value.to_s
   end
 
-  def format_song_to_string(song_name, by = 0, index = 1)
-    string = ""
-    string << justify(index, 0, " ", false).yellow if index == 1
-    string << justify(index, by, " ", false).yellow unless index == 1
-    string << ".   #{song_name.green}\n"
-    string
+  def format(song_name, by = 0, index = 1)
+    output = ""
+    output << justify(index, 0, " ", false).yellow if index == 1
+    output << justify(index, by, " ", false).yellow unless index == 1
+    output << ".   #{song_name.green}\n"
   end
 
-  def library_stat_heading
-    print_tab(4)
-    puts "Library Statistics"
-    generate_line(74, "-", "white", 1)
+  def stat_heading
+    tab 4
+    put "Library Statistics", "white"
+    line 74, "-", "white", 1
   end
 
-  def print_result_caption
-    put("         \n\nResults", "green")
-    generate_line(67, "-", "white", 0)
+  def result_caption(title = "")
+    progress_bar
+    sleep 0.5
+    put "         \n\nResults: #{title}", "green"
+    line 67, "-", "white", 0
   end
 
-  def print_caption(string, color)
-    print string.send(color)
+  def caption(text, color)
+    print text.send(color)
   end
 
-  def put(message, color)
+  def put(message, color = nil)
     puts message.send(color)
   end
 
-  def loading_bar_result_cap
-    progress_bar
-    sleep 0.5
-    print_result_caption
-  end
-
   def available_commands_heading
-    generate_line(57, "=", "yellow", 1)
-    print_tab(3)
-    puts "     Available Commands".yellow
-    generate_line(57, "=", "yellow", 1)
+    line 57, "=", "yellow", 1
+    tab 3
+    put "     Available Commands", "yellow"
+    line 57, "=", "yellow", 1
   end
 
   def song_to_string(song)
