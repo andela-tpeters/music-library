@@ -1,7 +1,7 @@
 module Concerns
   module Findable
     def find_by_name(name)
-      found = all.select { |object| object.name == name }
+      found = all.select { |item| item.name == name }
       return found if found.size > 1
       return found[0] if found.size == 1
       return nil if found.empty?

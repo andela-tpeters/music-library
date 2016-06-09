@@ -4,12 +4,12 @@ module Concerns
       unless self.class.all.include?(self)
         self.class.all << self
       end
+      self
     end
 
-    def add_song(song_object)
-      add_artist_to_song(song_object) if self.class == Artist
-      songs << song_object unless songs.include?(song_object)
-      songs
+    def add_song(song)
+      add_artist_to_song(song) if self.class == Artist
+      songs << song unless songs.include?(song)
     end
 
     def songs
