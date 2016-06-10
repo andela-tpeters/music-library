@@ -3,7 +3,7 @@ class Genre
   include Concerns
   @@songs = {}
   @@artists = {}
-  @all = @@all = []
+  @@all = []
 
   def initialize(name)
     @name = name
@@ -16,7 +16,6 @@ class Genre
   end
 
   def add_artist(artist)
-    artists << artist unless artists.include?(artist)
-    artists
+    artists << artist unless artists.include? artist
   end
 end
