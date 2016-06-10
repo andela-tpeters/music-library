@@ -38,8 +38,8 @@ $  bin/musiclibrary
 
   Commands:
     lib stat         - Shows Statistics of Library.
-    lib stat genres  - Shows All Genres and thier songs.
-    lib stat artists - Shows All Artists and thier songs.
+    lib genres  - Shows All Genres and thier songs.
+    lib artists - Shows All Artists and thier songs.
     list songs       - List all songs.
     list artists     - List all artists.
     list genres      - List all genres.

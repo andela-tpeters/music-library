@@ -56,7 +56,7 @@ class Messages < TextStyling
     style.line_animate(80)
     puts
     style.tab(3)
-    puts "   Welcome Music Library".white
+    puts "   Welcome to Music Library".white
     display_commands
   end
 
