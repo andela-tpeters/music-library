@@ -9,7 +9,7 @@ A command line Music Library application. The application accepts a file path to
 1. Clone the repo to your local machine.
 
 	```bash
-	$  git clone https://github.com/andela-hkagumba/music-library.git
+	$  git clone https://github.com/andela-tpeters/music-library.git
 	```
 
 2. `cd` into the music-library folder.
